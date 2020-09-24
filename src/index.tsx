@@ -8,6 +8,16 @@ import {
 } from 'react-native-gesture-handler'
 
 type Props = {
+  ////////////////////////
+  /////custom additions
+
+  //determines the width of the panel
+  contentWidth?: number | string
+
+
+
+
+
   /**
    * Points for snapping of bottom sheet component. They define distance from bottom of the screen.
    * Might be number or percent (as string e.g. '20%') for points or percents of screen height from bottom.
@@ -296,6 +306,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
   static defaultProps = {
     overdragResistanceFactor: 0,
     initialSnap: 0,
+    contentWidth: '100%',
     enabledImperativeSnapping: true,
     enabledGestureInteraction: true,
     enabledBottomClamp: false,
@@ -792,12 +803,12 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
   }
 
   render() {
-    const { borderRadius } = this.props
+    const { borderRadius, contentWidth } = this.props
     return (
       <>
         <Animated.View
           style={{
-            height: '100%',
+            height: contentWidth,
             width: 0,
             position: 'absolute',
           }}
