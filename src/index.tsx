@@ -808,7 +808,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
       <>
         <Animated.View
           style={{
-            height: contentWidth,
+            height: '100%',
             width: 0,
             position: 'absolute',
           }}
@@ -816,7 +816,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
         />
         <Animated.View
           style={{
-            width: '100%',
+            width: contentWidth,
             position: 'absolute',
             zIndex: 100,
             opacity: cond(this.height, 1, 0),
