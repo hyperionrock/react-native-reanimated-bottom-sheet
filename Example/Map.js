@@ -55,6 +55,7 @@ export default class Example extends React.Component {
           renderContent={this.renderInner}
           renderHeader={this.renderHeader}
           initialSnap={1}
+          sheetWidth={'75%'}
         />
         <TouchableWithoutFeedback onPress={() => this.bs.current.snapTo(0)}>
           <Image style={styles.map} source={require('./assets/map-bg.jpg')} />

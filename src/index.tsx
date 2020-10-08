@@ -8,15 +8,13 @@ import {
 } from 'react-native-gesture-handler'
 
 type Props = {
-  ////////////////////////
-  /////custom additions
+  // determines the width of the bottom sheet
+  sheetWidth?: number | string
 
-  //determines the width of the panel
-  contentWidth?: number | string
-
-
-
-
+  // determines the horizontal postion of the sheet (for use when the width is less than 100%)
+  left?: number | string
+  right?: number | string
+  translateX?: number | string
 
   /**
    * Points for snapping of bottom sheet component. They define distance from bottom of the screen.
@@ -306,7 +304,10 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
   static defaultProps = {
     overdragResistanceFactor: 0,
     initialSnap: 0,
-    contentWidth: '100%',
+    sheetWidth: '100%',
+    left: 'auto',
+    right: 'auto',
+    translateX: 'auto',
     enabledImperativeSnapping: true,
     enabledGestureInteraction: true,
     enabledBottomClamp: false,
@@ -803,7 +804,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
   }
 
   render() {
-    const { borderRadius, contentWidth } = this.props
+    const { borderRadius, sheetWidth, left, right, translateX } = this.props
     return (
       <>
         <Animated.View
@@ -811,13 +812,20 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
             height: '100%',
             width: 0,
             position: 'absolute',
+            left: left, right: right,
+            transform: [
+              {
+                translateX: translateX,
+              },
+            ],
           }}
           onLayout={this.handleFullHeader}
         />
         <Animated.View
           style={{
-            width: contentWidth,
-            position: 'absolute',
+            width: sheetWidth,
+            position: 'absolute', 
+            left: left, right: right,
             zIndex: 100,
             opacity: cond(this.height, 1, 0),
             transform: [
@@ -826,6 +834,9 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
               },
               {
                 translateY: sub(this.height, this.state.initSnap) as any,
+              },
+              {
+                translateX: translateX,
               },
             ],
           }}
