@@ -16,8 +16,9 @@ type Props = {
 
   // determines the horizontal postion of the sheet (for use when the width is less than 100%)
   left?: number | string
-  translateX?: number | string
+  right?: number | string
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////
 
   /**
    * Points for snapping of bottom sheet component. They define distance from bottom of the screen.
@@ -309,7 +310,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
     initialSnap: 0,
     contentWidth: '100%',
     left: 'auto',
-    translateX: 'auto',
+    right: 'auto',
     enabledImperativeSnapping: true,
     enabledGestureInteraction: true,
     enabledBottomClamp: false,
@@ -806,7 +807,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
   }
 
   render() {
-    const { borderRadius, contentWidth, left, translateX } = this.props
+    const { borderRadius, contentWidth, left, right} = this.props
     return (
       <>
         <Animated.View
@@ -815,6 +816,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
             width: 0,
             position: 'absolute',
             left: left,
+            right: right,
           }}
           onLayout={this.handleFullHeader}
         />
@@ -823,14 +825,12 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
             width: contentWidth,
             position: 'absolute',
             left: left,
+            right: right,
             zIndex: 100,
             opacity: cond(this.height, 1, 0),
             transform: [
               {
                 translateY: this.translateMaster,
-              },
-              {
-                translateX: translateX,
               },
               {
                 translateY: sub(this.height, this.state.initSnap) as any,
