@@ -14,8 +14,9 @@ type Props = {
   //determines the width of the panel
   contentWidth?: number | string
 
-
-
+  // determines the horizontal postion of the sheet (for use when the width is less than 100%)
+  left?: number | string
+  translateX?: number | string
 
 
   /**
@@ -307,6 +308,8 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
     overdragResistanceFactor: 0,
     initialSnap: 0,
     contentWidth: '100%',
+    left: 'auto',
+    translateX: 'auto',
     enabledImperativeSnapping: true,
     enabledGestureInteraction: true,
     enabledBottomClamp: false,
@@ -803,7 +806,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
   }
 
   render() {
-    const { borderRadius, contentWidth } = this.props
+    const { borderRadius, contentWidth, left, translateX } = this.props
     return (
       <>
         <Animated.View
@@ -811,6 +814,7 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
             height: '100%',
             width: 0,
             position: 'absolute',
+            left: left,
           }}
           onLayout={this.handleFullHeader}
         />
@@ -818,11 +822,15 @@ export default class BottomSheetBehavior extends React.Component<Props, State> {
           style={{
             width: contentWidth,
             position: 'absolute',
+            left: left,
             zIndex: 100,
             opacity: cond(this.height, 1, 0),
             transform: [
               {
                 translateY: this.translateMaster,
+              },
+              {
+                translateX: translateX,
               },
               {
                 translateY: sub(this.height, this.state.initSnap) as any,
