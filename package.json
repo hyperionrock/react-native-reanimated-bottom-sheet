@@ -39,7 +39,6 @@
     "react-native-reanimated": "*"
   },
   "devDependencies": {
-    "@babel/helper-validator-identifier": "^7.10.4",
     "@commitlint/config-conventional": "^7.5.0",
     "@react-native-community/bob": "^0.9.3",
     "@release-it/conventional-changelog": "^1.1.0",
